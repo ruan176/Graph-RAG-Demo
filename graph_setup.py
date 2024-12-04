@@ -1,13 +1,14 @@
 from langchain_community.graphs import Neo4jGraph
 
-def setup_graph():
+def setup_graph() -> Neo4jGraph:
     """
-    Setup and return a local Neo4j instance for hosting the reference graph.
+    Setup and return a connection instance of Neo4jGraph 
+    class.
 
-    Modify the variables below as required.
+    Amend variables below as per setup if running locally.
     """
     NEO4J_URI = 'bolt://localhost:7687'
-    NEO4J_USERNAME = 'user'
+    NEO4J_USERNAME = 'user1'
     NEO4J_PASSWORD = 'password'
     NEO4J_DATABASE = 'neo4j'
 

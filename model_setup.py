@@ -1,37 +1,36 @@
 from langchain.prompts.prompt import PromptTemplate
 
 
-def get_template():
+def get_template() -> str:
     """
-    Get template used to prompt llm to return the required Cypher query to provide
-    additional context to response to user question.
+    Get prompt template for LLM, used to generate the required Cypher query that 
+    provides additional context to response to user question.
     """
 
-    CYPHER_GENERATION_TEMPLATE = """Task:Generate Cypher statement to 
-    query a graph database.
+    CYPHER_GENERATION_TEMPLATE = """
+    Task: Create a Cypher query to interact with a graph database.
     Instructions:
-    Use only the provided relationship types and properties in the 
-    schema. Do not use any other relationship types or properties that 
-    are not provided.
+    Use only the relationship types and properties specified in the given schema.
+    Do not incorporate any other relationship types or properties not explicitly included in the schema.
     Schema:
     {schema}
-    Note: Do not include any explanations or apologies in your responses.
-    Do not respond to any questions that might ask anything else than 
-    for you to construct a Cypher statement.
-    Do not include any text except the generated Cypher statement.
-    Examples: Here are a few examples of generated Cypher 
-    statements for particular questions:
+
+    Note:
+    Only output the Cypher query.
+    Do not provide explanations, apologies, or respond to unrelated questions.
+    Examples: Below are sample Cypher queries for specific questions:
 
     # How many actors were in the movie 'The Matrix'?
     MATCH (actor:Person)-[:ACTED_IN]->(movie:Movie) 
     WHERE movie.title = 'The Matrix' 
     RETURN COUNT(actor)
     The question is:
-    {question}"""
+    {question}
+    """
 
     return CYPHER_GENERATION_TEMPLATE
 
-def get_structured_prompt(template):
+def get_structured_prompt(template) -> PromptTemplate:
     """
     Structure prompt in format for langchain chain used to
     structure Graph RAG response.

@@ -8,6 +8,8 @@ class LocalLlamaLLM():
     
     This enables demonstrator to operate with offline LLM, so no internet
     connection is required.
+
+    Parameters below may need to be altered depending on specific set up.
     """
     def __init__(self, endpoint: str = "http://localhost:11434/api/generate", model: str = "llama3", max_tokens: int = 100, temperature: float = 0.0):
         self.endpoint = endpoint
@@ -37,6 +39,7 @@ class LocalLlamaLLM():
             "stream": False,
         }
 
+        # Use try except block to catch an API request exception.
         try:
             response = requests.post(self.endpoint, json=payload, headers=headers)
             response.raise_for_status()
